@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {IState} from "../../interfaces/state";
 import {fetchAsteroids} from "../../store/api-actions";
 import Header from "../header/header";
+import Filter from "../filter/filter";
+import "./main-screen.scss";
 
 const MainScreen = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,14 @@ const MainScreen = () => {
 
   console.log(asteroids);
 
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <main className="page">
+        <Filter />
+      </main>
+    </>
+  );
 };
 
 export default MainScreen;

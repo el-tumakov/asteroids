@@ -1,0 +1,86 @@
+@import "../../scss/variables";
+
+.filter__fieldset {
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  &--distance {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+}
+
+.filter__input:focus + .filter__label {
+  outline: 1px solid $border-dark;
+}
+
+.filter__label--checkbox {
+  position: relative;
+
+  display: block;
+  padding-left: 31px;
+
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 3px;
+
+    width: 18px;
+    height: 18px;
+
+    border: 2px solid $border-dark;
+    border-radius: 2px;
+  }
+
+  &-active::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 6px;
+
+    width: 12px;
+    height: 7px;
+
+    border-bottom: 2px solid $border-dark;
+    border-left: 2px solid $border-dark;
+    transform: rotate(-45deg);
+  }
+}
+
+.filter__text {
+  margin-right: 6px;
+
+  line-height: 24px;
+}
+
+.filter__label--distance {
+  margin-right: 6px;
+
+  line-height: 24px;
+
+  &-active {
+    font-weight: 700;
+  }
+}
+
+@media (min-width: 700px) {
+  .filter__form {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .filter__fieldset--distance {
+    margin-top: 0;
+  }
+
+  .filter__text,
+  .filter__label--distance {
+    line-height: inherit;
+  }
+}
