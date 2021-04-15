@@ -1,6 +1,7 @@
 import React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import MainScreen from "../main-screen/main-screen";
+import "../../scss/style.scss";
 
 const App = () => (
   <BrowserRouter>

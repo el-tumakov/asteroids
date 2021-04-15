@@ -8,6 +8,40 @@
       content="Сервис мониторинга и уничтожения астероидов, опасно подлетающих к Земле."
     />
     <title>Armaggedon V</title>
+    <link
+      rel="preload"
+      href="./fonts/helvetica-regular.woff2"
+      as="font"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/helvetica-bold.woff2"
+      as="font"
+      crossorigin
+    />
+    <style>
+      @font-face {
+        font-style: normal;
+        font-weight: 400;
+        font-family: "helvetica";
+
+        font-display: swap;
+        src: local(""), url("./fonts/helvetica-regular.woff2") format("woff2"),
+        url("./fonts/helvetica-regular.woff") format("woff");
+      }
+
+      @font-face {
+        font-style: normal;
+        font-weight: 700;
+        font-family: "helvetica";
+
+        font-display: swap;
+        src: local(""), url("./fonts/helvetica-bold.woff2") format("woff2"),
+        url("./fonts/helvetica-bold.woff") format("woff");
+      }
+
+    </style>
   </head>
   <body>
     <noscript>
