@@ -8,3 +8,23 @@
   font-family: "helvetica", "arial", sans-serif;
   color: $font-dark;
 }
+
+@mixin button {
+  @include font;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 158px;
+  max-width: 180px;
+  min-height: 48px;
+  padding: 10px;
+  overflow: hidden;
+
+  color: $font-light;
+
+  background-color: $button;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+}

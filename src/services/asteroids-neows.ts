@@ -10,7 +10,7 @@ const apiClient = createAPI();
 
 export const getFeed = () => {
   const startDate = moment().format("YYYY-MM-DD");
-  const endDate = moment().add(1, "days").format("YYYY-MM-DD");
+  const endDate = startDate;
 
   return apiClient.get<IAsteroidFeed>(FEED_URL, {
     baseURL: BACKEND_URL,

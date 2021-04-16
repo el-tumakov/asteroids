@@ -1,9 +1,19 @@
+@import "../../scss/variables";
+
 .page__filter {
   margin-top: 10px;
+}
+
+.page__asteroids {
+  margin-top: 16px;
 }
 
 @media (min-width: 700px) {
   .page__filter {
     margin-top: 26px;
+  }
+
+  .page__asteroids {
+    margin-top: 24px;
   }
 }

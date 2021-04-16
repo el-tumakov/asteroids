@@ -1,11 +1,17 @@
 //color-names
 $black: #000000;
+$white: #ffffff;
+$royalblue: #186dd6;
 
 //color-types
 $font-dark: $black;
+$font-light: $white;
 $border-dark: $black;
+$safe-gradient: linear-gradient(90deg, #cff37d 0%, #7de88c 100%);
+$danger-gradient: linear-gradient(90deg, #ffb199 0%, #ff0844 100%);
+$button: $royalblue;
 
 //sizes
 $mobile-width: 320px;
 $tablet-width: 768px;
-$desktop-width: 1280px;
+$desktop-width: 980px;

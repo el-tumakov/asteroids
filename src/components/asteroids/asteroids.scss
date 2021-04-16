@@ -1,0 +1,39 @@
+@import "../../scss/variables";
+
+.asteroids__list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.asteroids__item {
+  min-width: 288px;
+  margin-bottom: 19px;
+}
+
+@media (min-width: 628px) {
+  .asteroids__list {
+    display: grid;
+    justify-content: space-between;
+
+    gap: 19px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .asteroids__item {
+    display: grid;
+    margin: 0;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .asteroids__list {
+    display: block;
+  }
+
+  .asteroids__item {
+    display: block;
+    margin-bottom: 16px;
+  }
+}
