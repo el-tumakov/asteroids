@@ -8,6 +8,11 @@
   margin-top: 16px;
 }
 
+.page__footer {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
 @media (min-width: 700px) {
   .page__filter {
     margin-top: 26px;
@@ -15,5 +20,12 @@
 
   .page__asteroids {
     margin-top: 24px;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .page__footer {
+    margin-top: 40px;
+    margin-bottom: 46px;
   }
 }

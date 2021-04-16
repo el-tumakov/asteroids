@@ -6,6 +6,7 @@ import {useScrollbarSize} from "react-scrollbar-size";
 import Header from "../header/header";
 import Filter from "../filter/filter";
 import Asteroids from "../asteroids/asteroids";
+import Footer from "../footer/footer";
 import "./main-screen.scss";
 
 const MIN_VIEWPORT_WIDTH = 320;
@@ -33,6 +34,7 @@ const MainScreen = () => {
         <Filter />
         <Asteroids nearEarthObjects={nearEarthObjects} />
       </main>
+      <Footer />
     </>
   );
 };
