@@ -4,6 +4,9 @@ import {
   IActionGetAsteroid,
   IActionAddAsteroid,
   IActionClearAsteroids,
+  IActionSetLoading,
+  IActionSetFilterDanger,
+  IActionSetFilterDistance,
 } from "../../interfaces/actions";
 import {IAsteroidFeed, IAdaptedAsteroid} from "../../interfaces/asteroids";
 
@@ -33,4 +36,23 @@ export const clearAsteroids = (
 ): IActionClearAsteroids => ({
   type: ActionType.CLEAR_ASTEROIDS,
   payload: astreoids,
+});
+
+export const setLoading = (isLoading: boolean): IActionSetLoading => ({
+  type: ActionType.SET_LOADING,
+  payload: isLoading,
+});
+
+export const setFilterDanger = (
+  isFilterDanger: boolean
+): IActionSetFilterDanger => ({
+  type: ActionType.SET_FILTER_DANGER,
+  payload: isFilterDanger,
+});
+
+export const setFilterDistance = (
+  filterDistance: string
+): IActionSetFilterDistance => ({
+  type: ActionType.SET_FILTER_DISTANCE,
+  payload: filterDistance,
 });

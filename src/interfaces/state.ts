@@ -5,8 +5,11 @@ import {
 } from "../interfaces/asteroids";
 
 export interface IState {
-  links: {} | ILinks;
+  links: ILinks;
   nearEarthObjects: {} | IAdaptedNearEarthObjects;
   asteroid: {} | IAdaptedAsteroid;
   checkedAsteroids: [] | Array<IAdaptedAsteroid>;
+  isLoading: boolean;
+  isFilterDanger: boolean;
+  filterDistance: "kilometres" | "moons";
 }

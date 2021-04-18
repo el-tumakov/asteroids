@@ -51,9 +51,9 @@ export interface INearEarthObjects {
 }
 
 export interface ILinks {
-  next: string;
-  prev: string;
-  self: string;
+  next?: string;
+  prev?: string;
+  self?: string;
 }
 
 export interface IAsteroidFeed {

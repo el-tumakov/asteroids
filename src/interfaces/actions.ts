@@ -6,6 +6,9 @@ export enum ActionType {
   GET_ASTEROID,
   ADD_ASTEROID,
   CLEAR_ASTEROIDS,
+  SET_LOADING,
+  SET_FILTER_DANGER,
+  SET_FILTER_DISTANCE,
 }
 
 export interface IAsteroidAction<T> extends Action<ActionType> {
@@ -30,8 +33,23 @@ export interface IActionClearAsteroids
   type: ActionType.CLEAR_ASTEROIDS;
 }
 
+export interface IActionSetLoading extends IAsteroidAction<boolean> {
+  type: ActionType.SET_LOADING;
+}
+
+export interface IActionSetFilterDanger extends IAsteroidAction<boolean> {
+  type: ActionType.SET_FILTER_DANGER;
+}
+
+export interface IActionSetFilterDistance extends IAsteroidAction<string> {
+  type: ActionType.SET_FILTER_DISTANCE;
+}
+
 export type AsteroidActions =
   | IActionLoadAsteroidFeed
   | IActionGetAsteroid
   | IActionAddAsteroid
-  | IActionClearAsteroids;
+  | IActionClearAsteroids
+  | IActionSetLoading
+  | IActionSetFilterDanger
+  | IActionSetFilterDistance;

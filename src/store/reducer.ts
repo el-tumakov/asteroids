@@ -9,6 +9,9 @@ const initialState: IState = {
   nearEarthObjects: {},
   asteroid: {},
   checkedAsteroids: [],
+  isLoading: true,
+  isFilterDanger: false,
+  filterDistance: "kilometres",
 };
 
 export const reducer: Reducer<IState, AsteroidActions> = (
@@ -24,6 +27,7 @@ export const reducer: Reducer<IState, AsteroidActions> = (
           state.nearEarthObjects,
           adaptNearEarthObjectsToClient(action.payload.near_earth_objects)
         ),
+        isLoading: false,
       });
 
     case ActionType.GET_ASTEROID:
@@ -49,6 +53,21 @@ export const reducer: Reducer<IState, AsteroidActions> = (
 
           return true;
         }),
+      });
+
+    case ActionType.SET_LOADING:
+      return Object.assign({}, state, {
+        isLoading: action.payload,
+      });
+
+    case ActionType.SET_FILTER_DANGER:
+      return Object.assign({}, state, {
+        isFilterDanger: action.payload,
+      });
+
+    case ActionType.SET_FILTER_DISTANCE:
+      return Object.assign({}, state, {
+        filterDistance: action.payload,
       });
 
     default:

@@ -1,8 +1,10 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ru";
 import {IAdaptedAsteroid} from "../../interfaces/asteroids";
+import {IState} from "../../interfaces/state";
 import AsteroidPicture from "../asteroid-picture/asteroid-picture";
 import "./asteroid-card.scss";
 
@@ -12,8 +14,39 @@ type AsteroidCardProps = {
 
 moment.locale("ru");
 
-const AsteroidCard = (props: AsteroidCardProps) => {
+const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
   const {asteroid} = props;
+  const filterDistance = useSelector((state: IState) => state.filterDistance);
+
+  const getDistance = () => {
+    switch (filterDistance) {
+      case "kilometres":
+        return (
+          Math.round(+asteroid.closeApproachData[0].missDistance.kilometers) +
+          " км"
+        );
+
+      case "moons":
+        const distance = Math.round(
+          +asteroid.closeApproachData[0].missDistance.lunar
+        ).toString();
+
+        if (distance[distance.length - 1] === "1") {
+          return distance + " луна";
+        }
+
+        if (
+          distance[distance.length - 1] === "2" ||
+          distance[distance.length - 1] === "3"
+        ) {
+          return distance + " луны";
+        }
+
+        return distance + " лун";
+    }
+  };
+
+  const distance = getDistance();
 
   const pictureWidth = Math.round(
     asteroid.estimatedDiameter.meters.estimatedDiameterMin
@@ -51,9 +84,7 @@ const AsteroidCard = (props: AsteroidCardProps) => {
               <th className="asteroid-card__row-title" scope="row">
                 Расстояние
               </th>
-              <td className="asteroid-card__row-value">{`${Math.round(
-                +asteroid.closeApproachData[0].missDistance.kilometers
-              )} км`}</td>
+              <td className="asteroid-card__row-value">{distance}</td>
             </tr>
             <tr className="asteroid-card__row">
               <th className="asteroid-card__row-title" scope="row">
