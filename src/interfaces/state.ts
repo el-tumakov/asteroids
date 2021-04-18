@@ -8,7 +8,7 @@ export interface IState {
   links: ILinks;
   nearEarthObjects: {} | IAdaptedNearEarthObjects;
   asteroid: {} | IAdaptedAsteroid;
-  checkedAsteroids: [] | Array<IAdaptedAsteroid>;
+  asteroidsForDestroy: Array<IAdaptedAsteroid>;
   isLoading: boolean;
   isFilterDanger: boolean;
   filterDistance: "kilometres" | "moons";

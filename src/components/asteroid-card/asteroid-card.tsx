@@ -1,8 +1,13 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {Dispatch} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ru";
+import {
+  addAsteroidForDestroy,
+  removeAsteroidFromDestroy,
+} from "../../store/actions/asteroid-actions";
+import {AsteroidActions} from "../../interfaces/actions";
 import {IAdaptedAsteroid} from "../../interfaces/asteroids";
 import {IState} from "../../interfaces/state";
 import AsteroidPicture from "../asteroid-picture/asteroid-picture";
@@ -10,13 +15,18 @@ import "./asteroid-card.scss";
 
 type AsteroidCardProps = {
   asteroid: IAdaptedAsteroid;
+  cardType: "main" | "for-destroy";
 };
 
 moment.locale("ru");
 
 const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
-  const {asteroid} = props;
+  const {asteroid, cardType} = props;
   const filterDistance = useSelector((state: IState) => state.filterDistance);
+  const asteroidsForDestroy = useSelector(
+    (state: IState) => state.asteroidsForDestroy
+  );
+  const dispatch: Dispatch<AsteroidActions> = useDispatch();
 
   const getDistance = () => {
     switch (filterDistance) {
@@ -54,6 +64,14 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
   const pictureHeight = Math.round(
     asteroid.estimatedDiameter.meters.estimatedDiameterMin
   );
+
+  const handleMainClick = () => {
+    dispatch(addAsteroidForDestroy(asteroid));
+  };
+
+  const handleForDestroyClick = () => {
+    dispatch(removeAsteroidFromDestroy(asteroid));
+  };
 
   return (
     <article
@@ -106,9 +124,29 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
             {asteroid.isPotentiallyHazardousAsteroid ? "опасен" : "не опасен"}
           </span>
         </p>
-        <button className="asteroid-card__button" type="button">
-          На уничтожение
-        </button>
+        {cardType === "main" && (
+          <button
+            className="asteroid-card__button"
+            type="button"
+            onClick={handleMainClick}
+            disabled={
+              asteroidsForDestroy.findIndex(
+                (item) => item.id === asteroid.id
+              ) >= 0
+            }
+          >
+            На уничтожение
+          </button>
+        )}
+        {cardType === "for-destroy" && (
+          <button
+            className="asteroid-card__button"
+            type="button"
+            onClick={handleForDestroyClick}
+          >
+            Убрать из списка
+          </button>
+        )}
       </div>
     </article>
   );

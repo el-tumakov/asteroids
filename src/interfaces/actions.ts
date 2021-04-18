@@ -4,8 +4,9 @@ import {IAsteroidFeed, IAdaptedAsteroid} from "../interfaces/asteroids";
 export enum ActionType {
   LOAD_ASTEROID_FEED,
   GET_ASTEROID,
-  ADD_ASTEROID,
-  CLEAR_ASTEROIDS,
+  ADD_ASTEROID_FOR_DESTROY,
+  REMOVE_ASTEROID_FROM_DESTROY,
+  DESTROY_ASTEROIDS,
   SET_LOADING,
   SET_FILTER_DANGER,
   SET_FILTER_DISTANCE,
@@ -24,13 +25,18 @@ export interface IActionGetAsteroid extends IAsteroidAction<IAdaptedAsteroid> {
   type: ActionType.GET_ASTEROID;
 }
 
-export interface IActionAddAsteroid extends IAsteroidAction<IAdaptedAsteroid> {
-  type: ActionType.ADD_ASTEROID;
+export interface IActionAddAsteroidForDestroy
+  extends IAsteroidAction<IAdaptedAsteroid> {
+  type: ActionType.ADD_ASTEROID_FOR_DESTROY;
 }
 
-export interface IActionClearAsteroids
-  extends IAsteroidAction<Array<IAdaptedAsteroid>> {
-  type: ActionType.CLEAR_ASTEROIDS;
+export interface IActionRemoveAsteroidFromDestroy
+  extends IAsteroidAction<IAdaptedAsteroid> {
+  type: ActionType.REMOVE_ASTEROID_FROM_DESTROY;
+}
+
+export interface IActionDestroyAsteroids extends Action<ActionType> {
+  type: ActionType.DESTROY_ASTEROIDS;
 }
 
 export interface IActionSetLoading extends IAsteroidAction<boolean> {
@@ -48,8 +54,9 @@ export interface IActionSetFilterDistance extends IAsteroidAction<string> {
 export type AsteroidActions =
   | IActionLoadAsteroidFeed
   | IActionGetAsteroid
-  | IActionAddAsteroid
-  | IActionClearAsteroids
+  | IActionAddAsteroidForDestroy
+  | IActionRemoveAsteroidFromDestroy
+  | IActionDestroyAsteroids
   | IActionSetLoading
   | IActionSetFilterDanger
   | IActionSetFilterDistance;

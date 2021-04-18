@@ -2,8 +2,9 @@ import {
   ActionType,
   IActionLoadAsteroidFeed,
   IActionGetAsteroid,
-  IActionAddAsteroid,
-  IActionClearAsteroids,
+  IActionAddAsteroidForDestroy,
+  IActionRemoveAsteroidFromDestroy,
+  IActionDestroyAsteroids,
   IActionSetLoading,
   IActionSetFilterDanger,
   IActionSetFilterDistance,
@@ -24,18 +25,22 @@ export const getAsteroid = (
   payload: asteroid,
 });
 
-export const addAsteroid = (
+export const addAsteroidForDestroy = (
   asteroid: IAdaptedAsteroid
-): IActionAddAsteroid => ({
-  type: ActionType.ADD_ASTEROID,
+): IActionAddAsteroidForDestroy => ({
+  type: ActionType.ADD_ASTEROID_FOR_DESTROY,
   payload: asteroid,
 });
 
-export const clearAsteroids = (
-  astreoids: Array<IAdaptedAsteroid>
-): IActionClearAsteroids => ({
-  type: ActionType.CLEAR_ASTEROIDS,
-  payload: astreoids,
+export const removeAsteroidFromDestroy = (
+  asteroid: IAdaptedAsteroid
+): IActionRemoveAsteroidFromDestroy => ({
+  type: ActionType.REMOVE_ASTEROID_FROM_DESTROY,
+  payload: asteroid,
+});
+
+export const destroyAsteroids = (): IActionDestroyAsteroids => ({
+  type: ActionType.DESTROY_ASTEROIDS,
 });
 
 export const setLoading = (isLoading: boolean): IActionSetLoading => ({

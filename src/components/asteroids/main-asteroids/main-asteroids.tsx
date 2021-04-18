@@ -3,18 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   IAdaptedAsteroid,
   IAdaptedNearEarthObjects,
-} from "../../interfaces/asteroids";
-import {IState} from "../../interfaces/state";
-import {fetchAsteroids} from "../../store/api-actions";
-import {AsteroidActions} from "../../store/actions";
-import AsteroidCard from "../asteroid-card/asteroid-card";
-import "./asteroids.scss";
+} from "../../../interfaces/asteroids";
+import {IState} from "../../../interfaces/state";
+import {fetchAsteroids} from "../../../store/api-actions";
+import {AsteroidActions} from "../../../store/actions";
+import Spinner from "../../spinner/spinner";
+import AsteroidCardMain from "../../asteroid-card/asteroid-card-main/asteroid-card-main";
+import "../asteroids.scss";
 
 const MIN_ASTEROIDS = 5;
-
-type AsteroidsProps = {
-  nearEarthObjects: IAdaptedNearEarthObjects;
-};
 
 const getAsteroids = (
   nearEarthObjects: IAdaptedNearEarthObjects,
@@ -35,13 +32,16 @@ const getAsteroids = (
   return asteroids;
 };
 
-const Asteroids: React.FC<AsteroidsProps> = (props) => {
-  const {nearEarthObjects} = props;
+const MainAsteroids: React.FC = () => {
   const dispatch = useDispatch();
-  const isFilterDanger = useSelector((state: IState) => state.isFilterDanger);
-  const asteroids = getAsteroids(nearEarthObjects, isFilterDanger);
   const links = useSelector((state: IState) => state.links);
+  const nearEarthObjects = useSelector(
+    (state: IState) => state.nearEarthObjects
+  );
   const lastAsteroid = useRef<HTMLLIElement>(null);
+  const isFilterDanger = useSelector((state: IState) => state.isFilterDanger);
+  const isLoading = useSelector((state: IState) => state.isLoading);
+  const asteroids = getAsteroids(nearEarthObjects, isFilterDanger);
 
   const scrollHandler = useCallback(() => {
     if (lastAsteroid.current) {
@@ -55,13 +55,17 @@ const Asteroids: React.FC<AsteroidsProps> = (props) => {
         dispatch(fetchAsteroids(links.next));
       }
     }
-  }, [dispatch, links.next]);
+  }, [dispatch, links.next, lastAsteroid]);
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
 
     return () => window.removeEventListener("scroll", scrollHandler);
   }, [scrollHandler]);
+
+  useEffect(() => {
+    dispatch(fetchAsteroids());
+  }, [dispatch]);
 
   useEffect(() => {
     if (asteroids.length < MIN_ASTEROIDS) {
@@ -71,21 +75,24 @@ const Asteroids: React.FC<AsteroidsProps> = (props) => {
   }, [asteroids, dispatch, links.next]);
 
   return (
-    <section className="asteroids page__asteroids">
-      <h2 className="visually-hidden">Список астероидов</h2>
-      <ul className="asteroids__list wrapper">
-        {asteroids.map((item, index) => (
-          <li
-            className="asteroids__item"
-            key={item.id + item.closeApproachData[0].epochDateCloseApproach}
-            ref={index === asteroids.length - 1 ? lastAsteroid : null}
-          >
-            <AsteroidCard asteroid={item} />
-          </li>
-        ))}
-      </ul>
-    </section>
+    <>
+      <section className="asteroids page__asteroids">
+        <h2 className="visually-hidden">Список астероидов</h2>
+        <ul className="asteroids__list wrapper">
+          {asteroids.map((item, index) => (
+            <li
+              className="asteroids__item"
+              key={item.id + item.closeApproachData[0].epochDateCloseApproach}
+              ref={index === asteroids.length - 1 ? lastAsteroid : null}
+            >
+              <AsteroidCardMain asteroid={item} />
+            </li>
+          ))}
+        </ul>
+      </section>
+      {isLoading && <Spinner />}
+    </>
   );
 };
 
-export default Asteroids;
+export default MainAsteroids;

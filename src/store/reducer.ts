@@ -1,14 +1,17 @@
 import {Reducer} from "redux";
 import {IState} from "./../interfaces/state";
-import {IAdaptedAsteroid} from "../interfaces/asteroids";
 import {ActionType, AsteroidActions} from "../interfaces/actions";
 import {adaptNearEarthObjectsToClient} from "./../utils";
+
+const asteroidsForDestroy = localStorage.getItem("asteroidsForDestroy");
 
 const initialState: IState = {
   links: {},
   nearEarthObjects: {},
   asteroid: {},
-  checkedAsteroids: [],
+  asteroidsForDestroy: asteroidsForDestroy
+    ? JSON.parse(asteroidsForDestroy)
+    : [],
   isLoading: true,
   isFilterDanger: false,
   filterDistance: "kilometres",
@@ -35,24 +38,35 @@ export const reducer: Reducer<IState, AsteroidActions> = (
         asteroid: action.payload,
       });
 
-    case ActionType.ADD_ASTEROID:
+    case ActionType.ADD_ASTEROID_FOR_DESTROY:
+      localStorage.setItem(
+        "asteroidsForDestroy",
+        JSON.stringify([...state.asteroidsForDestroy, action.payload])
+      );
+
       return Object.assign({}, state, {
-        checkedAsteroids: [...state.checkedAsteroids, action.payload],
+        asteroidsForDestroy: [...state.asteroidsForDestroy, action.payload],
       });
 
-    case ActionType.CLEAR_ASTEROIDS:
-      return Object.assign({}, state, {
-        checkedAsteroids: state.checkedAsteroids.filter((asteroid) => {
-          if (
-            action.payload.find(
-              (item: IAdaptedAsteroid) => asteroid.id === item.id
-            )
-          ) {
-            return false;
-          }
+    case ActionType.REMOVE_ASTEROID_FROM_DESTROY:
+      const asteroidsForDestroy = state.asteroidsForDestroy.filter(
+        (item) => item.id !== action.payload.id
+      );
 
-          return true;
-        }),
+      localStorage.setItem(
+        "asteroidsForDestroy",
+        JSON.stringify(asteroidsForDestroy)
+      );
+
+      return Object.assign({}, state, {
+        asteroidsForDestroy: asteroidsForDestroy,
+      });
+
+    case ActionType.DESTROY_ASTEROIDS:
+      localStorage.removeItem("asteroidsForDestroy");
+
+      return Object.assign({}, state, {
+        asteroidsForDestroy: [],
       });
 
     case ActionType.SET_LOADING:
