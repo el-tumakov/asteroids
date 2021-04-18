@@ -1,7 +1,8 @@
+import {FilterDistanceType} from "../../interfaces/filter";
 import {
   ActionType,
   IActionLoadAsteroidFeed,
-  IActionGetAsteroid,
+  IActionLoadAsteroid,
   IActionAddAsteroidForDestroy,
   IActionRemoveAsteroidFromDestroy,
   IActionDestroyAsteroids,
@@ -9,7 +10,11 @@ import {
   IActionSetFilterDanger,
   IActionSetFilterDistance,
 } from "../../interfaces/actions";
-import {IAsteroidFeed, IAdaptedAsteroid} from "../../interfaces/asteroids";
+import {
+  IAsteroidFeed,
+  IAsteroidFull,
+  IAdaptedAsteroid,
+} from "../../interfaces/asteroids";
 
 export const loadAsteroidFeed = (
   asteroidFeed: IAsteroidFeed
@@ -18,10 +23,8 @@ export const loadAsteroidFeed = (
   payload: asteroidFeed,
 });
 
-export const getAsteroid = (
-  asteroid: IAdaptedAsteroid
-): IActionGetAsteroid => ({
-  type: ActionType.GET_ASTEROID,
+export const loadAsteroid = (asteroid: IAsteroidFull): IActionLoadAsteroid => ({
+  type: ActionType.LOAD_ASTEROID,
   payload: asteroid,
 });
 
@@ -56,7 +59,7 @@ export const setFilterDanger = (
 });
 
 export const setFilterDistance = (
-  filterDistance: string
+  filterDistance: FilterDistanceType
 ): IActionSetFilterDistance => ({
   type: ActionType.SET_FILTER_DISTANCE,
   payload: filterDistance,

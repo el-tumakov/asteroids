@@ -5,7 +5,7 @@ import {
   IAdaptedNearEarthObjects,
 } from "../../../interfaces/asteroids";
 import {IState} from "../../../interfaces/state";
-import {fetchAsteroids} from "../../../store/api-actions";
+import {fetchAsteroidsFeed} from "../../../store/api-actions";
 import {AsteroidActions} from "../../../store/actions";
 import Spinner from "../../spinner/spinner";
 import AsteroidCardMain from "../../asteroid-card/asteroid-card-main/asteroid-card-main";
@@ -52,7 +52,7 @@ const MainAsteroids: React.FC = () => {
         window.removeEventListener("scroll", scrollHandler);
 
         dispatch(AsteroidActions.setLoading(true));
-        dispatch(fetchAsteroids(links.next));
+        dispatch(fetchAsteroidsFeed(links.next));
       }
     }
   }, [dispatch, links.next, lastAsteroid]);
@@ -64,13 +64,13 @@ const MainAsteroids: React.FC = () => {
   }, [scrollHandler]);
 
   useEffect(() => {
-    dispatch(fetchAsteroids());
+    dispatch(fetchAsteroidsFeed());
   }, [dispatch]);
 
   useEffect(() => {
     if (asteroids.length < MIN_ASTEROIDS) {
       dispatch(AsteroidActions.setLoading(true));
-      dispatch(fetchAsteroids(links.next));
+      dispatch(fetchAsteroidsFeed(links.next));
     }
   }, [asteroids, dispatch, links.next]);
 

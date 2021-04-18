@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {AsteroidActions} from "../../store/actions";
 import {IState} from "../../interfaces/state";
 import "./filter.scss";
+import {FilterDistanceType} from "../../interfaces/filter";
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Filter: React.FC = () => {
   };
 
   const handleFilterDistanceChange = (evt: FormEvent<HTMLInputElement>) => {
-    dispatch(AsteroidActions.setFilterDistance(evt.currentTarget.value));
+    dispatch(AsteroidActions.setFilterDistance(+evt.currentTarget.value));
   };
 
   return (
@@ -52,12 +53,12 @@ const Filter: React.FC = () => {
                 id="filter__kilometres"
                 type="radio"
                 name="filter__distance"
-                value="kilometres"
+                value={FilterDistanceType.KILOMETRES}
                 onChange={handleFilterDistanceChange}
               />
               <label
                 className={`filter__label filter__label--distance ${
-                  filterDistance === "kilometres" &&
+                  filterDistance === FilterDistanceType.KILOMETRES &&
                   "filter__label--distance-active"
                 }`}
                 htmlFor="filter__kilometres"
@@ -70,12 +71,13 @@ const Filter: React.FC = () => {
               id="filter__moon"
               type="radio"
               name="filter__distance"
-              value="moons"
+              value={FilterDistanceType.MOONS}
               onChange={handleFilterDistanceChange}
             />
             <label
               className={`filter__label filter__label--distance ${
-                filterDistance === "moons" && "filter__label--distance-active"
+                filterDistance === FilterDistanceType.MOONS &&
+                "filter__label--distance-active"
               }`}
               htmlFor="filter__moon"
             >

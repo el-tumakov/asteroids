@@ -1,3 +1,4 @@
+import {FilterDistanceType} from "./filter";
 import {
   IAdaptedNearEarthObjects,
   IAdaptedAsteroid,
@@ -7,9 +8,9 @@ import {
 export interface IState {
   links: ILinks;
   nearEarthObjects: {} | IAdaptedNearEarthObjects;
-  asteroid: {} | IAdaptedAsteroid;
+  asteroid: any;
   asteroidsForDestroy: Array<IAdaptedAsteroid>;
   isLoading: boolean;
   isFilterDanger: boolean;
-  filterDistance: "kilometres" | "moons";
+  filterDistance: FilterDistanceType;
 }

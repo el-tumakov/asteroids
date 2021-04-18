@@ -3,16 +3,14 @@ import AsteroidCard from "../asteroid-card";
 import {IAdaptedAsteroid} from "../../../interfaces/asteroids";
 import {CardTypes} from "../../../interfaces/card";
 
-type AsteroidCardForDestroyProps = {
+type AsteroidCardMainProps = {
   asteroid: IAdaptedAsteroid;
 };
 
-const AsteroidCardForDestroy: React.FC<AsteroidCardForDestroyProps> = (
-  props
-) => {
+const AsteroidCardFull: React.FC<AsteroidCardMainProps> = (props) => {
   const {asteroid} = props;
 
-  return <AsteroidCard asteroid={asteroid} cardType={CardTypes.FOR_DESTROY} />;
+  return <AsteroidCard asteroid={asteroid} cardType={CardTypes.FULL} />;
 };
 
-export default AsteroidCardForDestroy;
+export default AsteroidCardFull;

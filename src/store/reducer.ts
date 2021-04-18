@@ -1,7 +1,8 @@
 import {Reducer} from "redux";
 import {IState} from "./../interfaces/state";
 import {ActionType, AsteroidActions} from "../interfaces/actions";
-import {adaptNearEarthObjectsToClient} from "./../utils";
+import {adaptNearEarthObjectsToClient, adaptAsteroidToClient} from "./../utils";
+import {FilterDistanceType} from "../interfaces/filter";
 
 const asteroidsForDestroy = localStorage.getItem("asteroidsForDestroy");
 
@@ -14,7 +15,7 @@ const initialState: IState = {
     : [],
   isLoading: true,
   isFilterDanger: false,
-  filterDistance: "kilometres",
+  filterDistance: FilterDistanceType.KILOMETRES,
 };
 
 export const reducer: Reducer<IState, AsteroidActions> = (
@@ -33,9 +34,10 @@ export const reducer: Reducer<IState, AsteroidActions> = (
         isLoading: false,
       });
 
-    case ActionType.GET_ASTEROID:
+    case ActionType.LOAD_ASTEROID:
       return Object.assign({}, state, {
-        asteroid: action.payload,
+        asteroid: adaptAsteroidToClient(action.payload),
+        isLoading: false,
       });
 
     case ActionType.ADD_ASTEROID_FOR_DESTROY:

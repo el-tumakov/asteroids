@@ -1,9 +1,14 @@
 import {Action} from "redux";
-import {IAsteroidFeed, IAdaptedAsteroid} from "../interfaces/asteroids";
+import {
+  IAsteroidFeed,
+  IAsteroidFull,
+  IAdaptedAsteroid,
+} from "../interfaces/asteroids";
+import {FilterDistanceType} from "./filter";
 
 export enum ActionType {
   LOAD_ASTEROID_FEED,
-  GET_ASTEROID,
+  LOAD_ASTEROID,
   ADD_ASTEROID_FOR_DESTROY,
   REMOVE_ASTEROID_FROM_DESTROY,
   DESTROY_ASTEROIDS,
@@ -21,8 +26,8 @@ export interface IActionLoadAsteroidFeed
   type: ActionType.LOAD_ASTEROID_FEED;
 }
 
-export interface IActionGetAsteroid extends IAsteroidAction<IAdaptedAsteroid> {
-  type: ActionType.GET_ASTEROID;
+export interface IActionLoadAsteroid extends IAsteroidAction<IAsteroidFull> {
+  type: ActionType.LOAD_ASTEROID;
 }
 
 export interface IActionAddAsteroidForDestroy
@@ -47,13 +52,14 @@ export interface IActionSetFilterDanger extends IAsteroidAction<boolean> {
   type: ActionType.SET_FILTER_DANGER;
 }
 
-export interface IActionSetFilterDistance extends IAsteroidAction<string> {
+export interface IActionSetFilterDistance
+  extends IAsteroidAction<FilterDistanceType> {
   type: ActionType.SET_FILTER_DISTANCE;
 }
 
 export type AsteroidActions =
   | IActionLoadAsteroidFeed
-  | IActionGetAsteroid
+  | IActionLoadAsteroid
   | IActionAddAsteroidForDestroy
   | IActionRemoveAsteroidFromDestroy
   | IActionDestroyAsteroids

@@ -31,7 +31,7 @@ const AsteroidsForDestroy: React.FC<DestroyAsteroidsProps> = (props) => {
         ))}
       </ul>
       <button
-        className="asteroids__destroy"
+        className="asteroids__destroy destroy-page__destroy-button"
         type="button"
         onClick={handleClick}
       >
