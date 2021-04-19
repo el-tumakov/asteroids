@@ -1,4 +1,4 @@
-import React, {Dispatch} from "react";
+import React, {Dispatch, useEffect, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import moment from "moment";
@@ -16,7 +16,6 @@ import {
 } from "../../interfaces/asteroids";
 import {IState} from "../../interfaces/state";
 import {CardTypes} from "../../interfaces/card";
-import AsteroidPicture from "../asteroid-picture/asteroid-picture";
 import "moment/locale/ru";
 import "./asteroid-card.scss";
 
@@ -109,6 +108,8 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
     (state: IState) => state.asteroidsForDestroy
   );
   const dispatch: Dispatch<TAsteroidActions> = useDispatch();
+  const card = useRef<HTMLElement>(null);
+  const cardTitle = useRef<HTMLHeadingElement>(null);
 
   const distance = getDistance(
     filterDistance,
@@ -121,6 +122,24 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
   const pictureHeight = Math.round(
     asteroid.estimatedDiameter.meters.estimatedDiameterMin
   );
+
+  useEffect(() => {
+    if (cardTitle.current && card.current) {
+      cardTitle.current.style.setProperty(
+        "--asteroid-width",
+        pictureWidth + "px"
+      );
+
+      cardTitle.current.style.setProperty(
+        "--asteroid-height",
+        pictureHeight + "px"
+      );
+
+      card.current.style.setProperty("--asteroid-width", pictureWidth + "px");
+
+      card.current.style.setProperty("--asteroid-height", pictureHeight + "px");
+    }
+  }, [pictureHeight, pictureWidth]);
 
   const handleMainClick = () => {
     dispatch(addAsteroidForDestroy(asteroid));
@@ -139,9 +158,10 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
       className={`asteroid-card ${
         asteroid.isPotentiallyHazardousAsteroid && "asteroid-card--danger"
       } ${cardType === CardTypes.FULL && "asteroid-card--full"}`}
+      ref={card}
     >
       <div className="asteroid-card__info">
-        <h3 className="asteroid-card__title" style={{}}>
+        <h3 className="asteroid-card__title" ref={cardTitle}>
           <Link
             className={`asteroid-card__link ${
               cardType === CardTypes.FULL && "asteroid-card__link--inactive"
@@ -151,7 +171,6 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
           >
             {asteroid.name}
           </Link>
-          <AsteroidPicture width={pictureWidth} height={pictureHeight} />
         </h3>
         <table className="asteroid-card__description">
           <tbody>

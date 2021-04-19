@@ -29,7 +29,13 @@
   padding-bottom: 8px;
   padding-left: 16px;
 
-  background: $safe-gradient;
+  background-image: url("../../assets/img/asteroid.svg"), $safe-gradient;
+  background-repeat: no-repeat;
+  background-position: bottom 61px left 27px, 0 0;
+  background-size: var(--asteroid-width) var(--asteroid-height), 100% 100%;
+
+  --asteroid-height: 61px;
+  --asteroid-width: 62px;
 
   &::before {
     content: "";
@@ -46,7 +52,7 @@
 }
 
 .asteroid-card--danger .asteroid-card__title {
-  background: $danger-gradient;
+  background-image: url("../../assets/img/asteroid.svg"), $danger-gradient;
 }
 
 .asteroid-card__link {
@@ -68,12 +74,6 @@
 
     pointer-events: none;
   }
-}
-
-.asteroid-card__picture {
-  position: absolute;
-  bottom: 42%;
-  left: 27px;
 }
 
 .asteroid-card__description {
@@ -203,10 +203,17 @@
     padding-right: 24px;
     padding-left: 347px;
 
-    background: $safe-gradient;
+    background-image: url("../../assets/img/asteroid.svg"), $safe-gradient;
+    background-repeat: no-repeat;
+    background-position: bottom 90px left calc(93px - var(--asteroid-width) / 2),
+    0 0;
+    background-size: var(--asteroid-width) var(--asteroid-height), 100% 100%;
+
+    --asteroid-height: 61px;
+    --asteroid-width: 62px;
 
     &--danger {
-      background: $danger-gradient;
+      background-image: url("../../assets/img/asteroid.svg"), $danger-gradient;
     }
 
     &::before {
@@ -248,11 +255,6 @@
 
   .asteroid-card--danger .asteroid-card__title {
     background: transparent;
-  }
-
-  .asteroid-card__picture {
-    bottom: 90px;
-    left: 80px;
   }
 
   .asteroid-card__description {
