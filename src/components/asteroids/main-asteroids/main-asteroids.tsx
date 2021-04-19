@@ -68,11 +68,11 @@ const MainAsteroids: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (asteroids.length < MIN_ASTEROIDS) {
+    if (asteroids.length < MIN_ASTEROIDS && !isLoading) {
       dispatch(AsteroidActions.setLoading(true));
       dispatch(fetchAsteroidsFeed(links.next));
     }
-  }, [asteroids, dispatch, links.next]);
+  }, [asteroids, dispatch, links.next, isLoading]);
 
   return (
     <>
