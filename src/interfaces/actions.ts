@@ -1,4 +1,5 @@
 import {Action} from "redux";
+import {AxiosError} from "axios";
 import {
   IAsteroidFeed,
   IAsteroidFull,
@@ -15,6 +16,7 @@ export enum ActionType {
   SET_LOADING,
   SET_FILTER_DANGER,
   SET_FILTER_DISTANCE,
+  SET_ERROR,
 }
 
 export interface IAsteroidAction<T> extends Action<ActionType> {
@@ -57,6 +59,10 @@ export interface IActionSetFilterDistance
   type: ActionType.SET_FILTER_DISTANCE;
 }
 
+export interface IActionSetError extends IAsteroidAction<AxiosError> {
+  type: ActionType.SET_ERROR;
+}
+
 export type TAsteroidActions =
   | IActionLoadAsteroidFeed
   | IActionLoadAsteroid
@@ -65,4 +71,5 @@ export type TAsteroidActions =
   | IActionDestroyAsteroids
   | IActionSetLoading
   | IActionSetFilterDanger
-  | IActionSetFilterDistance;
+  | IActionSetFilterDistance
+  | IActionSetError;

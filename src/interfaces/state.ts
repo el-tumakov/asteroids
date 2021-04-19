@@ -1,3 +1,4 @@
+import {AxiosError} from "axios";
 import {FilterDistanceType} from "./filter";
 import {
   IAdaptedNearEarthObjects,
@@ -13,4 +14,5 @@ export interface IState {
   isLoading: boolean;
   isFilterDanger: boolean;
   filterDistance: FilterDistanceType;
+  error?: AxiosError;
 }

@@ -8,6 +8,7 @@ import {TAsteroidActions} from "../../interfaces/actions";
 import Header from "../header/header";
 import AsteroidCardFull from "../asteroid-card/asteroid-card-full/asteroid-card-full";
 import Spinner from "../spinner/spinner";
+import Error from "../error/error";
 import Footer from "../footer/footer";
 import "./asteroid-screen.scss";
 
@@ -20,6 +21,7 @@ const AsteroidScreen: React.FC = () => {
   const dispatch: Dispatch<TFetchAction<TAsteroidActions>> = useDispatch();
   const asteroid = useSelector((state: IState) => state.asteroid);
   const isLoading = useSelector((state: IState) => state.isLoading);
+  const err = useSelector((state: IState) => state.error);
 
   useEffect(() => {
     dispatch(fetchAsteroid(id));
@@ -28,9 +30,9 @@ const AsteroidScreen: React.FC = () => {
   return (
     <>
       <Header />
-      {isLoading ? (
-        <Spinner />
-      ) : (
+      {isLoading && <Spinner />}
+      {err && <Error err={err} />}
+      {!isLoading && !err && (
         <section className="asteroid-screen">
           <div className="wrapper">
             <h1 className="visually-hidden">

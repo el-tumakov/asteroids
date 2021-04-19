@@ -10,6 +10,7 @@ import {IState} from "../../../interfaces/state";
 import {TAsteroidActions} from "../../../interfaces/actions";
 import {TFetchAction} from "../../../interfaces/api-actions";
 import Spinner from "../../spinner/spinner";
+import Error from "../../error/error";
 import AsteroidCardMain from "../../asteroid-card/asteroid-card-main/asteroid-card-main";
 import "../asteroids.scss";
 
@@ -45,6 +46,7 @@ const MainAsteroids: React.FC = () => {
   const lastAsteroid = useRef<HTMLLIElement>(null);
   const isFilterDanger = useSelector((state: IState) => state.isFilterDanger);
   const isLoading = useSelector((state: IState) => state.isLoading);
+  const err = useSelector((state: IState) => state.error);
   const asteroids = getAsteroids(nearEarthObjects!, isFilterDanger);
 
   const scrollHandler = useCallback(() => {
@@ -72,11 +74,11 @@ const MainAsteroids: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (asteroids.length < MIN_ASTEROIDS && !isLoading) {
+    if (asteroids.length < MIN_ASTEROIDS && !isLoading && !err) {
       dispatch(AsteroidActions.setLoading(true));
       dispatch(fetchAsteroidsFeed(links!.next));
     }
-  }, [asteroids, dispatch, links, isLoading]);
+  }, [asteroids, dispatch, links, isLoading, err]);
 
   return (
     <>
@@ -95,6 +97,7 @@ const MainAsteroids: React.FC = () => {
         </ul>
       </section>
       {isLoading && <Spinner />}
+      {err && <Error err={err} />}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AsteroidNeoWsAPI} from "../services";
-import {IActionLoadAsteroid, IActionLoadAsteroidFeed} from "./actions";
+import {TAsteroidActions} from "./actions";
 import {IState} from "./state";
 
 export type TFetchAction<T extends Action> = ThunkAction<
@@ -13,6 +13,6 @@ export type TFetchAction<T extends Action> = ThunkAction<
 
 export type TFetchAsteroidsFeed = (
   url?: string
-) => TFetchAction<IActionLoadAsteroidFeed>;
+) => TFetchAction<TAsteroidActions>;
 
-export type TFetchAsteroid = (id: string) => TFetchAction<IActionLoadAsteroid>;
+export type TFetchAsteroid = (id: string) => TFetchAction<TAsteroidActions>;

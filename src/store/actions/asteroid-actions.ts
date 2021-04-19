@@ -1,3 +1,4 @@
+import {AxiosError} from "axios";
 import {FilterDistanceType} from "../../interfaces/filter";
 import {
   ActionType,
@@ -9,6 +10,7 @@ import {
   IActionSetLoading,
   IActionSetFilterDanger,
   IActionSetFilterDistance,
+  IActionSetError,
 } from "../../interfaces/actions";
 import {
   IAsteroidFeed,
@@ -63,4 +65,9 @@ export const setFilterDistance = (
 ): IActionSetFilterDistance => ({
   type: ActionType.SET_FILTER_DISTANCE,
   payload: filterDistance,
+});
+
+export const setError = (err: AxiosError): IActionSetError => ({
+  type: ActionType.SET_ERROR,
+  payload: err,
 });
