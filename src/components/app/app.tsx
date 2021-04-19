@@ -5,7 +5,7 @@ import DestroyScreen from "../destroy-screen/destroy-screen";
 import AsteroidScreen from "../asteroid-screen/asteroid-screen";
 import "../../scss/style.scss";
 
-const App = () => (
+const App: React.FC = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/">

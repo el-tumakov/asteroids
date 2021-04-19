@@ -2,13 +2,12 @@ import React, {Dispatch} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import moment from "moment";
-import "moment/locale/ru";
 import {
   addAsteroidForDestroy,
   removeAsteroidFromDestroy,
   setLoading,
 } from "../../store/actions/asteroid-actions";
-import {AsteroidActions} from "../../interfaces/actions";
+import {TAsteroidActions} from "../../interfaces/actions";
 import {FilterDistanceType} from "../../interfaces/filter";
 import {
   IAdaptedAsteroid,
@@ -18,6 +17,7 @@ import {
 import {IState} from "../../interfaces/state";
 import {CardTypes} from "../../interfaces/card";
 import AsteroidPicture from "../asteroid-picture/asteroid-picture";
+import "moment/locale/ru";
 import "./asteroid-card.scss";
 
 type AsteroidCardProps = {
@@ -108,7 +108,7 @@ const AsteroidCard: React.FC<AsteroidCardProps> = (props) => {
   const asteroidsForDestroy = useSelector(
     (state: IState) => state.asteroidsForDestroy
   );
-  const dispatch: Dispatch<AsteroidActions> = useDispatch();
+  const dispatch: Dispatch<TAsteroidActions> = useDispatch();
 
   const distance = getDistance(
     filterDistance,

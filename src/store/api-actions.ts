@@ -1,27 +1,16 @@
-import {ThunkAction} from "redux-thunk";
-import {AsteroidNeoWsAPI} from "../services";
 import {AsteroidActions} from "./actions";
-import {
-  IActionLoadAsteroidFeed,
-  IActionLoadAsteroid,
-} from "../interfaces/actions";
-import {IState} from "../interfaces/state";
+import {TFetchAsteroid, TFetchAsteroidsFeed} from "./../interfaces/api-actions";
 
-export const fetchAsteroidsFeed = (
-  url?: string
-): ThunkAction<
-  void,
-  IState,
-  typeof AsteroidNeoWsAPI,
-  IActionLoadAsteroidFeed
-> => (dispatch, _getState, api) =>
+export const fetchAsteroidsFeed: TFetchAsteroidsFeed = (url) => (
+  dispatch,
+  _getState,
+  api
+) =>
   (url ? api.getFeedByURL(url) : api.getFeed()).then(({data}) =>
     dispatch(AsteroidActions.loadAsteroidFeed(data))
   );
 
-export const fetchAsteroid = (
-  id: string
-): ThunkAction<void, IState, typeof AsteroidNeoWsAPI, IActionLoadAsteroid> => (
+export const fetchAsteroid: TFetchAsteroid = (id) => (
   dispatch,
   _getState,
   api

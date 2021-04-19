@@ -5,7 +5,7 @@ type AsteroidPictureProps = {
   height?: number;
 };
 
-const AsteroidPicture = (props: AsteroidPictureProps) => {
+const AsteroidPicture: React.FC<AsteroidPictureProps> = (props) => {
   const {width, height} = props;
 
   return (

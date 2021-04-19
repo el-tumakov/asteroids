@@ -1,7 +1,8 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import {useDispatch} from "react-redux";
-import {IAdaptedAsteroid} from "../../../interfaces/asteroids";
 import {destroyAsteroids} from "../../../store/actions/asteroid-actions";
+import {IActionDestroyAsteroids} from "../../../interfaces/actions";
+import {IAdaptedAsteroid} from "../../../interfaces/asteroids";
 import AsteroidCardForDestroy from "../../asteroid-card/asteroid-card-for-destroy/asteroid-card-for-destroy";
 import "../asteroids.scss";
 
@@ -11,7 +12,7 @@ type DestroyAsteroidsProps = {
 
 const AsteroidsForDestroy: React.FC<DestroyAsteroidsProps> = (props) => {
   const {asteroids} = props;
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<IActionDestroyAsteroids> = useDispatch();
 
   const handleClick = () => {
     dispatch(destroyAsteroids());

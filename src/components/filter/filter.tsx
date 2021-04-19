@@ -1,12 +1,13 @@
-import React, {FormEvent} from "react";
+import React, {Dispatch, FormEvent} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {AsteroidActions} from "../../store/actions";
 import {IState} from "../../interfaces/state";
-import "./filter.scss";
+import {TAsteroidActions} from "../../interfaces/actions";
 import {FilterDistanceType} from "../../interfaces/filter";
+import "./filter.scss";
 
 const Filter: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<TAsteroidActions> = useDispatch();
   const isFilterDanger = useSelector((state: IState) => state.isFilterDanger);
   const filterDistance = useSelector((state: IState) => state.filterDistance);
 

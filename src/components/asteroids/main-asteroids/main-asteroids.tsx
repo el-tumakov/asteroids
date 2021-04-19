@@ -1,12 +1,14 @@
-import React, {useCallback, useEffect, useRef} from "react";
+import React, {Dispatch, useCallback, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchAsteroidsFeed} from "../../../store/api-actions";
+import {AsteroidActions} from "../../../store/actions";
 import {
   IAdaptedAsteroid,
   IAdaptedNearEarthObjects,
 } from "../../../interfaces/asteroids";
 import {IState} from "../../../interfaces/state";
-import {fetchAsteroidsFeed} from "../../../store/api-actions";
-import {AsteroidActions} from "../../../store/actions";
+import {TAsteroidActions} from "../../../interfaces/actions";
+import {TFetchAction} from "../../../interfaces/api-actions";
 import Spinner from "../../spinner/spinner";
 import AsteroidCardMain from "../../asteroid-card/asteroid-card-main/asteroid-card-main";
 import "../asteroids.scss";
@@ -33,7 +35,9 @@ const getAsteroids = (
 };
 
 const MainAsteroids: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<
+    TAsteroidActions | TFetchAction<TAsteroidActions>
+  > = useDispatch();
   const links = useSelector((state: IState) => state.links);
   const nearEarthObjects = useSelector(
     (state: IState) => state.nearEarthObjects
@@ -41,7 +45,7 @@ const MainAsteroids: React.FC = () => {
   const lastAsteroid = useRef<HTMLLIElement>(null);
   const isFilterDanger = useSelector((state: IState) => state.isFilterDanger);
   const isLoading = useSelector((state: IState) => state.isLoading);
-  const asteroids = getAsteroids(nearEarthObjects, isFilterDanger);
+  const asteroids = getAsteroids(nearEarthObjects!, isFilterDanger);
 
   const scrollHandler = useCallback(() => {
     if (lastAsteroid.current) {
@@ -52,10 +56,10 @@ const MainAsteroids: React.FC = () => {
         window.removeEventListener("scroll", scrollHandler);
 
         dispatch(AsteroidActions.setLoading(true));
-        dispatch(fetchAsteroidsFeed(links.next));
+        dispatch(fetchAsteroidsFeed(links!.next));
       }
     }
-  }, [dispatch, links.next, lastAsteroid]);
+  }, [dispatch, links, lastAsteroid]);
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
@@ -70,9 +74,9 @@ const MainAsteroids: React.FC = () => {
   useEffect(() => {
     if (asteroids.length < MIN_ASTEROIDS && !isLoading) {
       dispatch(AsteroidActions.setLoading(true));
-      dispatch(fetchAsteroidsFeed(links.next));
+      dispatch(fetchAsteroidsFeed(links!.next));
     }
-  }, [asteroids, dispatch, links.next, isLoading]);
+  }, [asteroids, dispatch, links, isLoading]);
 
   return (
     <>

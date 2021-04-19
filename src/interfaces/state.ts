@@ -6,9 +6,9 @@ import {
 } from "../interfaces/asteroids";
 
 export interface IState {
-  links: ILinks;
-  nearEarthObjects: {} | IAdaptedNearEarthObjects;
-  asteroid: any;
+  links?: ILinks;
+  nearEarthObjects?: IAdaptedNearEarthObjects;
+  asteroid?: IAdaptedAsteroid;
   asteroidsForDestroy: Array<IAdaptedAsteroid>;
   isLoading: boolean;
   isFilterDanger: boolean;

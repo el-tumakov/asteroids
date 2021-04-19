@@ -1,24 +1,25 @@
 import {Reducer} from "redux";
+import {
+  getAsteroidsForDestroy,
+  setAsteroidsForDestroy,
+  removeAsteroidsFromDestroy,
+} from "./../services/local-storage";
 import {IState} from "./../interfaces/state";
-import {ActionType, AsteroidActions} from "../interfaces/actions";
+import {ActionType, TAsteroidActions} from "../interfaces/actions";
 import {adaptNearEarthObjectsToClient, adaptAsteroidToClient} from "./../utils";
 import {FilterDistanceType} from "../interfaces/filter";
 
-const asteroidsForDestroy = localStorage.getItem("asteroidsForDestroy");
-
 const initialState: IState = {
-  links: {},
-  nearEarthObjects: {},
-  asteroid: {},
-  asteroidsForDestroy: asteroidsForDestroy
-    ? JSON.parse(asteroidsForDestroy)
-    : [],
+  links: undefined,
+  nearEarthObjects: undefined,
+  asteroid: undefined,
+  asteroidsForDestroy: getAsteroidsForDestroy(),
   isLoading: true,
   isFilterDanger: false,
   filterDistance: FilterDistanceType.KILOMETRES,
 };
 
-export const reducer: Reducer<IState, AsteroidActions> = (
+export const reducer: Reducer<IState, TAsteroidActions> = (
   state = initialState,
   action
 ) => {
@@ -41,10 +42,7 @@ export const reducer: Reducer<IState, AsteroidActions> = (
       });
 
     case ActionType.ADD_ASTEROID_FOR_DESTROY:
-      localStorage.setItem(
-        "asteroidsForDestroy",
-        JSON.stringify([...state.asteroidsForDestroy, action.payload])
-      );
+      setAsteroidsForDestroy([...state.asteroidsForDestroy, action.payload]);
 
       return Object.assign({}, state, {
         asteroidsForDestroy: [...state.asteroidsForDestroy, action.payload],
@@ -55,17 +53,14 @@ export const reducer: Reducer<IState, AsteroidActions> = (
         (item) => item.id !== action.payload.id
       );
 
-      localStorage.setItem(
-        "asteroidsForDestroy",
-        JSON.stringify(asteroidsForDestroy)
-      );
+      setAsteroidsForDestroy(asteroidsForDestroy);
 
       return Object.assign({}, state, {
         asteroidsForDestroy: asteroidsForDestroy,
       });
 
     case ActionType.DESTROY_ASTEROIDS:
-      localStorage.removeItem("asteroidsForDestroy");
+      removeAsteroidsFromDestroy();
 
       return Object.assign({}, state, {
         asteroidsForDestroy: [],

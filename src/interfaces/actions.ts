@@ -57,7 +57,7 @@ export interface IActionSetFilterDistance
   type: ActionType.SET_FILTER_DISTANCE;
 }
 
-export type AsteroidActions =
+export type TAsteroidActions =
   | IActionLoadAsteroidFeed
   | IActionLoadAsteroid
   | IActionAddAsteroidForDestroy
