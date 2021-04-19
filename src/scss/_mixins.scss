@@ -9,8 +9,19 @@
   color: $font-dark;
 }
 
+@mixin hover-active {
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
+}
+
 @mixin button {
   @include font;
+  @include hover-active;
 
   display: flex;
   justify-content: center;

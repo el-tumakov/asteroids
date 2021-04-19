@@ -1,12 +1,17 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
 
 .header__wrap {
   position: relative;
 
-  padding-top: 14.5px;
-  padding-bottom: 18px;
+  padding-top: 21.5px;
+  padding-bottom: 16px;
 
   border-bottom: 1px solid $border-dark;
+}
+
+.header__logo {
+  @include hover-active;
 }
 
 .header__image {
@@ -17,7 +22,7 @@
 .header__description {
   max-width: 414px;
   margin: 0;
-  margin-top: 22.5px;
+  margin-top: 19.5px;
 }
 
 .header__navigation {
@@ -38,6 +43,8 @@
 }
 
 .header__link {
+  @include hover-active;
+
   margin-right: 24px;
 
   color: inherit;
@@ -53,7 +60,8 @@
 @media (min-width: 700px) {
   .header__wrap {
     display: grid;
-    padding-top: 47px;
+    padding-top: 46px;
+    padding-bottom: 22px;
 
     grid-template-columns: 414px 1fr;
   }
@@ -64,15 +72,20 @@
   }
 
   .header__description {
+    margin-top: 14.5px;
+
     grid-column-end: 2;
     grid-column-start: 1;
   }
 
   .header__list {
     justify-content: flex-end;
+    margin-right: 4px;
   }
 
   .header__navigation {
+    margin-top: 3px;
+
     grid-column-end: 3;
     grid-column-start: 2;
     grid-row-end: 3;
@@ -81,6 +94,6 @@
 
   .header__link {
     margin: 0;
-    margin-left: 24px;
+    margin-left: 29px;
   }
 }

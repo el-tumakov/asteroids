@@ -14,13 +14,13 @@ const DestroyScreen: React.FC = () => {
   return (
     <>
       <Header />
-      <main className="page destroy-page">
+      <main className="page destroy">
         {asteroidsForDestroy.length ? (
           <AsteroidsForDestroy asteroids={asteroidsForDestroy} />
         ) : (
-          <p className="destroy-page__blank wrapper">
-            Астероидов на уничтожение нет!
-          </p>
+          <div className="wrapper">
+            <p className="destroy__blank">Астероидов на уничтожение нет!</p>
+          </div>
         )}
       </main>
       <Footer />

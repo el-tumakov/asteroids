@@ -1,4 +1,5 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
 
 .filter__fieldset {
   margin: 0;
@@ -17,6 +18,10 @@
   outline: 1px solid $border-dark;
 }
 
+.filter__label {
+  @include hover-active;
+}
+
 .filter__label--checkbox {
   position: relative;
 
@@ -28,7 +33,7 @@
   &::before {
     content: "";
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 3px;
 
     width: 18px;
@@ -60,14 +65,18 @@
 }
 
 .filter__label--distance {
-  margin-right: 6px;
+  margin-right: 0;
 
   line-height: 24px;
+  text-decoration: underline;
 
   cursor: pointer;
 
   &-active {
     font-weight: 700;
+    text-decoration: none;
+
+    pointer-events: none;
   }
 }
 
@@ -81,8 +90,20 @@
     margin-top: 0;
   }
 
+  .filter__kilometres-wrap {
+    margin-right: 8px;
+  }
+
   .filter__text,
   .filter__label--distance {
     line-height: inherit;
+  }
+
+  .filter__label--checkbox {
+    padding-left: 29px;
+
+    &::before {
+      left: 0;
+    }
   }
 }
