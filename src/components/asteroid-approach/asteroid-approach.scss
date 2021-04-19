@@ -1,0 +1,54 @@
+@import "../../scss/variables";
+
+.approach {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.approach__title {
+  margin-bottom: 20px;
+
+  font-weight: 700;
+  text-align: center;
+}
+
+.approach__list {
+  display: grid;
+  justify-content: space-between;
+  padding: 0;
+
+  list-style: none;
+
+  grid-template-columns: 1fr;
+}
+
+.approach__item {
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.approach__table {
+  padding-top: 0;
+}
+
+.approach__caption {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 520px) {
+  .pproach__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 755px) {
+  .approach__list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .approach__list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

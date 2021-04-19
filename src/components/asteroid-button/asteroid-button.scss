@@ -1,0 +1,5 @@
+@import "../../scss/mixins";
+
+.asteroid-button {
+  @include button;
+}

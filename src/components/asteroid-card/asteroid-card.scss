@@ -91,10 +91,6 @@
 
   border-collapse: collapse;
   border-spacing: 0;
-
-  &--approach {
-    padding-top: 0;
-  }
 }
 
 .asteroid-card__row {
@@ -129,39 +125,6 @@
   padding: 0;
 }
 
-.asteroid-card__approach {
-  z-index: 1;
-
-  width: 100%;
-  margin: 0 auto;
-}
-
-.asteroid-card__approach-title {
-  margin-bottom: 20px;
-
-  font-weight: 700;
-  text-align: center;
-}
-
-.asteroid-card__approach-list {
-  display: grid;
-  justify-content: space-between;
-  padding: 0;
-
-  list-style: none;
-
-  grid-template-columns: 1fr;
-}
-
-.asteroid-card__approach-item {
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
-
-.asteroid-card__approach-caption {
-  margin-bottom: 10px;
-}
-
 .asteroid-card__side-wrap {
   margin-top: auto;
 }
@@ -179,23 +142,9 @@
 }
 
 .asteroid-card__button {
-  @include button;
-
   align-self: flex-end;
   margin: 0 auto;
   margin-top: 6px;
-}
-
-@media (min-width: 520px) {
-  .asteroid-card__approach-list {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 755px) {
-  .asteroid-card__approach-list {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
 }
 
 @media (min-width: $desktop-width) {
@@ -288,9 +237,5 @@
     .asteroid-card__info {
       width: 100%;
     }
-  }
-
-  .asteroid-card__approach-list {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }

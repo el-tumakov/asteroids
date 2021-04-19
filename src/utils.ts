@@ -3,7 +3,9 @@ import {
   IAsteroidFeed,
   INearEarthObjects,
   IAdaptedNearEarthObjects,
+  IMissDistance,
 } from "./interfaces/asteroids";
+import {FilterDistanceType} from "./interfaces/filter";
 
 export const adaptAsteroidToClient = (asteroid: IAsteroid) => ({
   absoluteMagnitudeH: asteroid.absolute_magnitude_h,
@@ -75,3 +77,29 @@ export const adaptAsteroidFeedToClient = (asteroids: IAsteroidFeed) => ({
   links: asteroids.links,
   nearEarthObjects: adaptNearEarthObjectsToClient(asteroids.near_earth_objects),
 });
+
+export const getDistance = (
+  filterDistance: FilterDistanceType,
+  missDistance: IMissDistance
+) => {
+  switch (filterDistance) {
+    case FilterDistanceType.KILOMETRES:
+      return Math.round(+missDistance.kilometers) + " км";
+
+    case FilterDistanceType.MOONS:
+      const distance = Math.round(+missDistance.lunar).toString();
+
+      if (distance[distance.length - 1] === "1") {
+        return distance + " луна";
+      }
+
+      if (
+        distance[distance.length - 1] === "2" ||
+        distance[distance.length - 1] === "3"
+      ) {
+        return distance + " луны";
+      }
+
+      return distance + " лун";
+  }
+};
