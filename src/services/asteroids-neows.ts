@@ -23,7 +23,8 @@ export const getFeed = () => {
   });
 };
 
-export const getFeedByURL = (url: string) => apiClient.get<IAsteroidFeed>(url);
+export const getFeedByURL = (url: string) =>
+  apiClient.get<IAsteroidFeed>(url.replace("http://", "https://"));
 
 export const getAsteroid = (id: string) =>
   apiClient.get<IAsteroidFull>(ASTEROID_URL + id, {
